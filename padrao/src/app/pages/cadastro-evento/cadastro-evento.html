@@ -1,0 +1,107 @@
+<p>cadastro-evento works!</p>
+
+<h2>Cadastro de evento</h2>
+
+<form>
+  <div>
+    <label for="titulo">Título do evento</label>
+    <input
+      type="text"
+      id="titulo"
+      name="titulo"
+      [(ngModel)]="titulo"
+      (blur)="validarCampo('titulo')"
+      [class.invalido]="erros.titulo !== null"
+    />
+
+    @if (camposVisitados.titulo && erros.titulo) {
+      <p class="erro">{{ erros.titulo }}</p>
+    }
+  </div>
+
+  <div>
+    <label for="data">Data</label>
+    <input
+      type="date"
+      id="data"
+      name="data"
+      [(ngModel)]="data"
+      (blur)="validarCampo('data')"
+      [class.invalido]="erros.data !== null"
+    />
+
+    @if (camposVisitados.data && erros.data) {
+      <p class="erro">{{ erros.data }}</p>
+    }
+  </div>
+
+  <div>
+    <label for="local">Local</label>
+    <select
+      id="local"
+      name="local"
+      [(ngModel)]="local"
+      (blur)="validarCampo('local')"
+      [class.invalido]="erros.local !== null"
+    >
+      <option value="">Selecione um local</option>
+      <option value="Auditório">Auditório</option>
+      <option value="Laboratório 1">Laboratório 1</option>
+      <option value="Laboratório 2">Laboratório 2</option>
+      <option value="Sala 101">Sala 101</option>
+    </select>
+
+    @if (camposVisitados.local && erros.local) {
+      <p class="erro">{{ erros.local }}</p>
+    }
+  </div>
+
+  <div>
+    <label for="emailResponsavel">E-mail do responsável</label>
+    <input
+      type="email"
+      id="emailResponsavel"
+      name="emailResponsavel"
+      [(ngModel)]="emailResponsavel"
+      (blur)="validarCampo('emailResponsavel')"
+      [class.invalido]="erros.emailResponsavel !== null"
+    />
+
+    @if (camposVisitados.emailResponsavel && erros.emailResponsavel) {
+      <p class="erro">{{ erros.emailResponsavel }}</p>
+    }
+  </div>
+
+  <div>
+    <label for="vagas">Vagas</label>
+    <input
+      type="number"
+      id="vagas"
+      name="vagas"
+      [(ngModel)]="vagas"
+      (blur)="validarCampo('vagas')"
+      [class.invalido]="erros.vagas !== null"
+    />
+
+    @if (camposVisitados.vagas && erros.vagas) {
+      <p class="erro">{{ erros.vagas }}</p>
+    }
+  </div>
+
+  <button type="button" [disabled]="!formularioValido" (click)="salvar()">
+    Salvar
+  </button>
+</form>
+
+<h2>Eventos cadastrados</h2>
+
+<ul>
+  @for (evento of eventos; track evento.id) {
+    <li>
+      {{ evento.titulo }} — {{ evento.data }} — {{ evento.local }} —
+      {{ evento.emailResponsavel }} — {{ evento.vagas }} vagas
+    </li>
+  } @empty {
+    <li>Nenhum evento cadastrado.</li>
+  }
+</ul>
